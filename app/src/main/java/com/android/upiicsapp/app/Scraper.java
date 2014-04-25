@@ -21,11 +21,11 @@ import javax.net.ssl.X509TrustManager;
  * Created by Hugo on 24/04/14.
  */
 public class Scraper {
-    Document res;
-    Elements viewState;
-    Elements eventValidation;
-    Connection.Response response;
-    Map<String,String> algo;
+    private Document res;
+    private Elements viewState;
+    private Elements eventValidation;
+    private Connection.Response response;
+    private Map<String,String> algo;
 
     public Scraper(String URLtoLogin) {
         try{
