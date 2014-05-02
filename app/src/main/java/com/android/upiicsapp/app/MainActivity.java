@@ -1,22 +1,20 @@
 package com.android.upiicsapp.app;
 
 import android.app.Activity;
-import android.support.v7.app.ActionBarActivity;
-import android.support.v7.app.ActionBar;
+import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
-import android.content.Context;
-import android.os.Build;
-import android.os.Bundle;
-import android.view.Gravity;
+import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBar;
+import android.support.v7.app.ActionBarActivity;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.support.v4.widget.DrawerLayout;
-import android.widget.ArrayAdapter;
 import android.widget.TextView;
+import android.widget.Toast;
 
 
 public class MainActivity extends ActionBarActivity
@@ -49,11 +47,39 @@ public class MainActivity extends ActionBarActivity
 
     @Override
     public void onNavigationDrawerItemSelected(int position) {
-        // update the main content by replacing fragments
-        FragmentManager fragmentManager = getSupportFragmentManager();
-        fragmentManager.beginTransaction()
-                .replace(R.id.container, PlaceholderFragment.newInstance(position + 1))
-                .commit();
+        Mostrar(position+1);
+    }
+
+    private void Mostrar(int position){
+        Fragment fragment = null;
+        switch (position) {
+            case 1:
+                fragment = new Home();
+            break;
+
+            case 2:
+                fragment = new Horario();
+            break;
+
+            case 3:
+                fragment = new Calificaciones();
+            break;
+
+            case 4:
+                fragment = new Tareas();
+            break;
+
+            default:
+                fragment = new Home();
+            break;
+        }
+        if (fragment != null) {
+            FragmentManager fragmentManager = getSupportFragmentManager();
+            fragmentManager.beginTransaction().replace(R.id.container, fragment).commit();
+        } else {
+            //Si el fragment es nulo mostramos un mensaje de error.
+            Toast.makeText(this,"ERROR al abrir la seleccion",Toast.LENGTH_SHORT).show();
+        }
     }
 
     public void onSectionAttached(int number) {
@@ -133,7 +159,7 @@ public class MainActivity extends ActionBarActivity
                 Bundle savedInstanceState) {
             View rootView = inflater.inflate(R.layout.fragment_main, container, false);
             TextView textView = (TextView) rootView.findViewById(R.id.section_label);
-            textView.setText(Integer.toString(getArguments().getInt(ARG_SECTION_NUMBER)));
+            textView.setText(Integer.toString(getArguments(      ).getInt(ARG_SECTION_NUMBER)));
             return rootView;
         }
 
@@ -143,6 +169,8 @@ public class MainActivity extends ActionBarActivity
             ((MainActivity) activity).onSectionAttached(
                     getArguments().getInt(ARG_SECTION_NUMBER));
         }
+
+
     }
 
 }

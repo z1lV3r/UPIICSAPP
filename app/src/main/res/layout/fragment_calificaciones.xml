@@ -1,0 +1,46 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.android.upiicsapp.app.Calificaciones">
+
+    <!-- TODO: Update blank fragment layout -->
+    <HorizontalScrollView
+        android:layout_width="match_parent"
+        android:layout_below="@+id/text"
+        android:layout_height="fill_parent" >
+        <FrameLayout
+            android:layout_width="fill_parent"
+            android:layout_height="match_parent" >
+            <LinearLayout
+                android:id="@+id/linearLayout_gridtableLayout"
+                android:layout_width="580dp"
+                android:layout_height="match_parent"
+                android:orientation="horizontal" >
+                <GridView
+                    android:id="@+id/gridView"
+                    android:numColumns="7"
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent"
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:scrollbarAlwaysDrawHorizontalTrack="true"
+                    android:scrollbarAlwaysDrawVerticalTrack="true"
+                    android:scrollbars="horizontal|vertical" />
+            </LinearLayout>
+        </FrameLayout>
+    </HorizontalScrollView>
+
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="New Text"
+        android:id="@+id/text"
+        android:gravity="center"
+        android:layout_alignParentBottom="false"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true" />
+
+</RelativeLayout>

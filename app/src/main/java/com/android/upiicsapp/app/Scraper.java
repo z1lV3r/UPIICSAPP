@@ -1,8 +1,13 @@
 package com.android.upiicsapp.app;
 
+import android.content.Context;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
+
 import org.jsoup.Connection;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
+import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
 import java.io.IOException;
@@ -21,11 +26,11 @@ import javax.net.ssl.X509TrustManager;
  * Created by Hugo on 24/04/14.
  */
 public class Scraper {
-    private Document res;
-    private Elements viewState;
-    private Elements eventValidation;
-    private Connection.Response response;
-    private Map<String,String> algo;
+    Document res;
+    Elements viewState;
+    Elements eventValidation;
+    Connection.Response response;
+    Map<String,String> cookies;
 
     public Scraper(String URLtoLogin) {
         try{
@@ -54,11 +59,11 @@ public class Scraper {
         }
     }
     public Document sraping_to(String URL){
-        Document doc = new Document("");
-        algo = response.cookies();
+        Document doc = null;
+        cookies = response.cookies();
         try {
             doc = Jsoup.connect(URL)
-                    .cookies(algo)
+                    .cookies(cookies)
                     .timeout(30000)
                     .get();
         }
@@ -66,6 +71,61 @@ public class Scraper {
             e.printStackTrace();
         }
         return doc;
+    }
+    public String[] getCalficaciones(Document doc){
+        String[] tablaCal;
+        int numMat=0;
+        for(Element data:doc.select("table#ctl00_mainCopy_GV_Calif tr")){
+            numMat++;
+        }
+        tablaCal = new String[7*numMat];
+
+        tablaCal[0]="Grupo";
+        tablaCal[1]="Materia";
+        tablaCal[2]="1er Parcial";
+        tablaCal[3]="2do Parcial";
+        tablaCal[4]="3er Parcial";
+        tablaCal[5]="Ext";
+        tablaCal[6]="Final";
+        int i=7;
+        int colum=0;
+        for(Element data:doc.select("table#ctl00_mainCopy_GV_Calif tr td")){
+            colum++;
+            if(colum==2){
+                char[] sigla = new  char[5];
+                int num=0;
+                boolean isSigla=true;
+                for(int j=0;j<data.text().length();j++){
+                    if(isSigla){
+                        sigla[num]=data.text().charAt(j);
+                        isSigla=false;
+                        num++;
+                    }
+                    else {
+                        if (data.text().charAt(j)==' '){isSigla=true;}
+                    }
+                }
+                tablaCal[i]= String.valueOf(sigla);
+            }
+            else {
+                if(colum==7){colum=0;}
+                tablaCal[i] = data.text();
+            }
+            i++;
+        }
+        return tablaCal;
+    }
+
+    public static boolean isOnline (Context context){
+        boolean state=false;
+        ConnectivityManager cm = (ConnectivityManager)  context.getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo[] ni= cm.getAllNetworkInfo();
+        for (int i=0;i<2;i++){
+            if(ni[i].getState()==NetworkInfo.State.CONNECTED){
+                state = true;
+            }
+        }
+        return state;
     }
 
     public static void breakSSL() {
