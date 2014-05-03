@@ -2,9 +2,6 @@
 <resources>
 
     <string name="app_name">UPIICSAPP</string>
-    <string name="title_section1">Section 1</string>
-    <string name="title_section2">Section 2</string>
-    <string name="title_section3">Section 3</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
     <string name="action_example">Example action</string>
@@ -13,5 +10,14 @@
     <string name="title_activity_splash_screen">SplashScreen</string>
     <string name="dummy_button">Dummy Button</string>
     <string name="dummy_content">DUMMY\nCONTENT</string>
+    <string name="title_activity_login">Login</string>
+    <string name="hello_world">Hello world!</string>
+
+    <string-array name="Titles">
+        <item>Home</item>
+        <item>Horario</item>
+        <item>Calificaciones</item>
+        <item>Tareas</item>
+    </string-array>
 
 </resources>

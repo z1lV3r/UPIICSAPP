@@ -51,7 +51,7 @@ public class MainActivity extends ActionBarActivity
     }
 
     private void Mostrar(int position){
-        Fragment fragment = null;
+        Fragment fragment;
         switch (position) {
             case 1:
                 fragment = new Home();
@@ -73,27 +73,12 @@ public class MainActivity extends ActionBarActivity
                 fragment = new Home();
             break;
         }
-        if (fragment != null) {
-            FragmentManager fragmentManager = getSupportFragmentManager();
-            fragmentManager.beginTransaction().replace(R.id.container, fragment).commit();
-        } else {
-            //Si el fragment es nulo mostramos un mensaje de error.
-            Toast.makeText(this,"ERROR al abrir la seleccion",Toast.LENGTH_SHORT).show();
-        }
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        fragmentManager.beginTransaction().replace(R.id.container, fragment).commit();
     }
 
     public void onSectionAttached(int number) {
-        switch (number) {
-            case 1:
-                mTitle = getString(R.string.title_section1);
-                break;
-            case 2:
-                mTitle = getString(R.string.title_section2);
-                break;
-            case 3:
-                mTitle = getString(R.string.title_section3);
-                break;
-        }
+        mTitle = getResources().getStringArray(R.array.Titles)[number-1];
     }
 
     public void restoreActionBar() {
@@ -137,7 +122,7 @@ public class MainActivity extends ActionBarActivity
          * The fragment argument representing the section number for this
          * fragment.
          */
-        private static final String ARG_SECTION_NUMBER = "section_number";
+    static final String ARG_SECTION_NUMBER = "section_number";
 
         /**
          * Returns a new instance of this fragment for the given section
@@ -149,9 +134,6 @@ public class MainActivity extends ActionBarActivity
             args.putInt(ARG_SECTION_NUMBER, sectionNumber);
             fragment.setArguments(args);
             return fragment;
-        }
-
-        public PlaceholderFragment() {
         }
 
         @Override
