@@ -99,7 +99,7 @@ public class NavigationDrawerFragment extends Fragment {
         });
         mDrawerListView.setAdapter(new ArrayAdapter<String>(
                 getActionBar().getThemedContext(),
-                android.R.layout.simple_list_item_1,
+                R.layout.navigation_drawer_item,
                 android.R.id.text1,
                 getResources().getStringArray(R.array.Titles)));
         mDrawerListView.setItemChecked(mCurrentSelectedPosition, true);
