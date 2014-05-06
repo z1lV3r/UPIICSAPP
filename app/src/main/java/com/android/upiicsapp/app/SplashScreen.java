@@ -1,8 +1,11 @@
 package com.android.upiicsapp.app;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
+import android.widget.Toast;
 
 import com.android.upiicsapp.app.util.SystemUiHider;
 
@@ -19,22 +22,22 @@ public class SplashScreen extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash_screen);
-        Thread timer = new Thread(){
+        final Context context = this;
+        final Intent intent = new Intent("com.android.upiicsapp.app.Login");
 
+        Thread verificar = new Thread(){
             public void run(){
+                intent.putExtra("isOnline",Scraper.isOnline(context));
+                intent.putExtra("existDB",DbHelper.existDB(context));
                 try {
-                    sleep(5000);
-                }
-                catch (InterruptedException e) {
+                    Thread.sleep(5000);
+                } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
-                finally {
-                    Intent intent = new Intent("com.android.upiicsapp.app.Main");
-                    startActivity(intent);
-                    finish();
-                }
+                startActivity(intent);
+                finish();
             }
         };
-        timer.start();
+        verificar.start();
     }
 }

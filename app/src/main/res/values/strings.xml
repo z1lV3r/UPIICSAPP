@@ -12,6 +12,10 @@
     <string name="dummy_content">DUMMY\nCONTENT</string>
     <string name="title_activity_login">Login</string>
     <string name="hello_world">Hello world!</string>
+    <string name="Login">Ingresar</string>
+    <string name="Password">Contraseña</string>
+    <string name="Boleta">Boleta</string>
+    <string name="Reintentar_conexion">Reintentar conexion</string>
 
     <string-array name="Titles">
         <item>Home</item>

@@ -27,7 +27,6 @@ public class Calificaciones extends Fragment{
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_calificaciones,container,false);
 
-
         text = (TextView)view.findViewById(R.id.text);
         grid = (GridView)view.findViewById(R.id.gridView);
         if(Scraper.isOnline(getActivity())){
