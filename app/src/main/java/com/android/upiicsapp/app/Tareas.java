@@ -31,7 +31,7 @@ public class Tareas extends Fragment {
         lvTareas = (ListView) view.findViewById(R.id.lvTareas);
         ibAdd = (ImageButton) view.findViewById(R.id.ibAdd);
 
-        if(!DbHelper.existDB(getActivity().getApplicationContext())) {
+        if(!DbTarHelper.existDB(getActivity().getApplicationContext())) {
             dbTarManager = new DbTarManager(getActivity().getApplicationContext());
             dbTarManager.insertar("Exposición de sistemas", "En rotafolio", "2014-05-11");
             dbTarManager.insertar("Ensayo de software", "Ensayo de la situación del software en México", "2014-05-11");
