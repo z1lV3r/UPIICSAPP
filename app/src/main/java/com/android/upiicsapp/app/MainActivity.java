@@ -13,6 +13,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class MainActivity extends ActionBarActivity
         implements NavigationDrawerFragment.NavigationDrawerCallbacks {
@@ -27,11 +28,15 @@ public class MainActivity extends ActionBarActivity
      */
     private CharSequence mTitle;
 
+    Bundle bundle = new Bundle();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
+        Bundle extras = getIntent().getExtras();
+        bundle.putString("boleta",extras.getString("boleta"));
+        bundle.putString("contra",extras.getString("contra"));
         mNavigationDrawerFragment = (NavigationDrawerFragment)
                 getSupportFragmentManager().findFragmentById(R.id.navigation_drawer);
         mTitle = getTitle();
@@ -48,18 +53,22 @@ public class MainActivity extends ActionBarActivity
     }
 
     private void Mostrar(int position){
-        Fragment fragment;
+        Fragment fragment = null;
         switch (position) {
             case 1:
                 fragment = new Home();
             break;
 
             case 2:
-                fragment = new Horario();
+                if(Scraper.isOnline(this)) {
+                    fragment = new Horario();
+                }
             break;
 
             case 3:
-                fragment = new Calificaciones();
+                if(Scraper.isOnline(this)){
+                    fragment = new Calificaciones();
+                }
             break;
 
             case 4:
@@ -70,8 +79,14 @@ public class MainActivity extends ActionBarActivity
                 fragment = new Home();
             break;
         }
-        FragmentManager fragmentManager = getSupportFragmentManager();
-        fragmentManager.beginTransaction().replace(R.id.container, fragment).commit();
+        if (fragment!=null) {
+            fragment.setArguments(bundle);
+            FragmentManager fragmentManager = getSupportFragmentManager();
+            fragmentManager.beginTransaction().replace(R.id.container, fragment).commit();
+        }
+        else {
+            Toast.makeText(this,"Se necesita conexion a internet para esta opcion",Toast.LENGTH_LONG).show();
+        }
     }
 
     public void onSectionAttached(int number) {

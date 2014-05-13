@@ -18,15 +18,18 @@ import org.jsoup.nodes.Document;
 public class Calificaciones extends Fragment{
 
     private String title;
-    //private TextView tit;*/
     private TextView text;
+    String boleta;
+    String contra;
     GridView grid;
     ArrayAdapter<String> adapter;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_calificaciones,container,false);
-
+        Bundle data = this.getArguments();
+        boleta = data.getString("boleta");
+        contra = data.getString("contra");
         text = (TextView)view.findViewById(R.id.text);
         grid = (GridView)view.findViewById(R.id.gridView);
         if(Scraper.isOnline(getActivity())){
@@ -36,7 +39,7 @@ public class Calificaciones extends Fragment{
                     Document doc;
                     Scraper.breakSSL();
                     Scraper scraper = new Scraper("https://www.saes.upiicsa.ipn.mx/default.aspx");
-                    scraper.login("2014601987","159753");
+                    scraper.login(boleta,contra);
                     doc=scraper.sraping_to("https://www.saes.upiicsa.ipn.mx/Alumnos/Informacion_semestral/calificaciones_sem.aspx");
                     title=doc.title();
                     adapter = new ArrayAdapter<String>(getActivity(),android.R.layout.simple_list_item_1,scraper.getCalficaciones(doc));
@@ -48,7 +51,6 @@ public class Calificaciones extends Fragment{
                             //En esta parte siempre mostrar los resultados.
                             text.setText(title);
                             grid.setAdapter(adapter);
-                            Toast.makeText(getActivity(), "Tarea finalizada!", Toast.LENGTH_SHORT).show();
                         }
                     });
                 }

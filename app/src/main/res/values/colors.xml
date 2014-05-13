@@ -3,4 +3,5 @@
     <color name="black_overlay">#66000000</color>
    <color name="guinda">#ff801d2e</color>
     <color name="blanco">#ffffffff</color>
+    <color name="gris">#de1d1d1d</color>
 </resources>

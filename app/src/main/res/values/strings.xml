@@ -16,6 +16,8 @@
     <string name="Password">Contraseña</string>
     <string name="Boleta">Boleta</string>
     <string name="Reintentar_conexion">Reintentar conexion</string>
+    <string name="Cerrar_Sesion">Cerrar Sesion</string>
+    <string name="AddTask">Agregar Tarea</string>
 
     <string-array name="Titles">
         <item>Home</item>
@@ -23,5 +25,7 @@
         <item>Calificaciones</item>
         <item>Tareas</item>
     </string-array>
+
+    <string name="title_activity_nueva_tarea">Nueva_tarea</string>
 
 </resources>

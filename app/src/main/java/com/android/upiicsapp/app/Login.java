@@ -1,11 +1,10 @@
 package com.android.upiicsapp.app;
 
-import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
+import android.os.Bundle;
 import android.os.Handler;
 import android.support.v7.app.ActionBarActivity;
-import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -58,6 +57,10 @@ public class Login extends ActionBarActivity {
         }
         enableFocusable(extras.getBoolean("isOnline") || existDB);
 
+
+    }
+
+    private Thread inicializar(){
         thread = new Thread(new Runnable() {
             public void run() {
                 handler.post(new Runnable() {
@@ -107,6 +110,8 @@ public class Login extends ActionBarActivity {
                             DbAluManager dbAluManager = new DbAluManager(getApplicationContext());
                             dbAluManager.insertar(boleta.getText().toString(),pass.getText().toString());
                             Intent intent = new Intent("com.android.upiicsapp.app.Main");
+                            intent.putExtra("boleta",boleta.getText().toString());
+                            intent.putExtra("contra",pass.getText().toString());
                             startActivity(intent);
                             finish();
                         }
@@ -126,6 +131,7 @@ public class Login extends ActionBarActivity {
                 });
             }
         });
+        return thread;
     }
 
     private void enableFocusable(boolean activar){
@@ -175,7 +181,22 @@ public class Login extends ActionBarActivity {
 
         if (!existDB) {
             if (pass.getText().length() > 0 && boleta.getText().length() == 10) {
-                thread.start();
+                if (Scraper.isOnline(this)) {
+                    thread = inicializar();
+                    thread.start();
+                }
+                else {
+                    enableFocusable(Scraper.isOnline(this));
+                    Toast.makeText(getApplicationContext(),"ERROR de autentificación",Toast.LENGTH_SHORT).show();
+                    tvContra.setVisibility(View.VISIBLE);
+                    tvBoleta.setVisibility(View.VISIBLE);
+                    login.setVisibility(View.VISIBLE);
+                    boleta.setVisibility(View.VISIBLE);
+                    pass.setVisibility(View.VISIBLE);
+
+                    progressBar.setVisibility(View.GONE);
+                    tvProgress.setVisibility(View.GONE);
+                }
             }
             else {
                 enableFocusable(Scraper.isOnline(this));
@@ -199,13 +220,45 @@ public class Login extends ActionBarActivity {
                 if (alumno.moveToFirst()) {
                     if (alumno.getString(alumno.getColumnIndex(DbAluManager.CN_PASS)).equals(pass.getText().toString())) {
                         Intent intent = new Intent("com.android.upiicsapp.app.Main");
+                        intent.putExtra("boleta",boleta.getText().toString());
+                        intent.putExtra("contra",pass.getText().toString());
                         startActivity(intent);
                         finish();
                     } else {
-                        thread.start();
+                        if (Scraper.isOnline(this)) {
+                            thread = inicializar();
+                            thread.start();
+                        }
+                        else {
+                            enableFocusable(Scraper.isOnline(this));
+                            Toast.makeText(getApplicationContext(),"ERROR de autentificación",Toast.LENGTH_SHORT).show();
+                            tvContra.setVisibility(View.VISIBLE);
+                            tvBoleta.setVisibility(View.VISIBLE);
+                            login.setVisibility(View.VISIBLE);
+                            boleta.setVisibility(View.VISIBLE);
+                            pass.setVisibility(View.VISIBLE);
+
+                            progressBar.setVisibility(View.GONE);
+                            tvProgress.setVisibility(View.GONE);
+                        }
                     }
                 } else {
-                    thread.start();
+                    if (Scraper.isOnline(this)) {
+                        thread = inicializar();
+                        thread.start();
+                    }
+                    else {
+                        enableFocusable(Scraper.isOnline(this));
+                        Toast.makeText(getApplicationContext(),"ERROR de autentificación",Toast.LENGTH_SHORT).show();
+                        tvContra.setVisibility(View.VISIBLE);
+                        tvBoleta.setVisibility(View.VISIBLE);
+                        login.setVisibility(View.VISIBLE);
+                        boleta.setVisibility(View.VISIBLE);
+                        pass.setVisibility(View.VISIBLE);
+
+                        progressBar.setVisibility(View.GONE);
+                        tvProgress.setVisibility(View.GONE);
+                    }
                 }
             }
             else{
