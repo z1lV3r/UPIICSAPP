@@ -5,9 +5,68 @@
     tools:context="com.android.upiicsapp.app.Horario">
 
     <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="fill_parent"
+        android:layout_height="61dp"
+        android:layout_gravity="top"
+        android:background="@color/guinda"
+        android:gravity="top"
+        android:id="@+id/llHor">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="64dp"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:text="HORARIO"
+            android:id="@+id/textView"
+            android:gravity="center_vertical|center_horizontal"
+
+            android:editable="false"
+            android:textColor="@color/blanco"
+            android:textSize="40dp" />
+    </LinearLayout>
+
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="" />
+        android:layout_marginTop="64dp"
+        android:id="@+id/rlHor">
+
+        <HorizontalScrollView
+            android:layout_width="match_parent"
+            android:layout_height="fill_parent"
+            android:id="@+id/horizontalScrollView2" >
+
+            <FrameLayout
+                android:layout_width="fill_parent"
+                android:layout_height="match_parent">
+
+                <LinearLayout
+                    android:layout_width="1400dp"
+                    android:orientation="horizontal"
+                    android:layout_height="fill_parent">
+
+                    <GridView
+                        android:layout_width="fill_parent"
+                        android:layout_height="fill_parent"
+                        android:id="@+id/GridHor"
+                        android:numColumns="11"
+                        android:columnWidth="10000dp"
+                        android:gravity="center"
+                        android:scrollbarAlwaysDrawHorizontalTrack="true"
+                        android:scrollbarAlwaysDrawVerticalTrack="true"
+                        android:scrollbars="horizontal|vertical"/>
+                </LinearLayout>
+            </FrameLayout>
+        </HorizontalScrollView>
+</RelativeLayout>
+
+    <ProgressBar
+        style="?android:attr/progressBarStyleHorizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/pbHorario"
+        android:layout_gravity="center" />
 
 </FrameLayout>

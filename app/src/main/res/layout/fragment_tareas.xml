@@ -19,7 +19,8 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:layout_toLeftOf="@+id/ibAdd"
-        android:background="@color/guinda" />
+        android:background="@color/guinda"
+        android:gravity="center" />
 
     <ListView
         android:layout_width="match_parent"
@@ -27,7 +28,8 @@
         android:id="@+id/lvTareas"
         android:layout_below="@+id/spFechas"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+        android:layout_alignParentStart="true"
+        android:layout_above="@+id/textView" />
 
     <ImageButton
         android:layout_width="wrap_content"
@@ -40,5 +42,21 @@
         android:layout_above="@+id/lvTareas"
         android:src="@android:drawable/ic_input_add"
         android:contentDescription="@string/AddTask" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="SE SIGUE IMPLEMENTANDO!!"
+        android:id="@+id/textView"
+        android:layout_alignParentTop="false"
+        android:layout_centerHorizontal="true"
+        android:layout_alignParentBottom="true"
+        android:background="@color/guinda"
+        android:textColor="@color/blanco"
+        android:textSize="30dp"
+        android:gravity="center"
+        android:textColorHint="@color/black_overlay"
+        android:textColorHighlight="@color/black_overlay" />
 
 </RelativeLayout>

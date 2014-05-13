@@ -8,7 +8,8 @@
     <HorizontalScrollView
         android:layout_width="match_parent"
         android:layout_below="@+id/text"
-        android:layout_height="fill_parent" >
+        android:layout_height="fill_parent"
+        android:id="@+id/hsv">
         <FrameLayout
             android:layout_width="fill_parent"
             android:layout_height="match_parent" >
@@ -35,12 +36,18 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="New Text"
         android:id="@+id/text"
         android:gravity="center"
         android:layout_alignParentBottom="false"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true" />
+
+    <ProgressBar
+        style="?android:attr/progressBarStyleHorizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/progressBar"
+        android:layout_centerInParent="true" />
 
 </RelativeLayout>

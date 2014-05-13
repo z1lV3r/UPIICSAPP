@@ -116,6 +116,56 @@ public class Scraper {
         return tablaCal;
     }
 
+    public String[] getHorario(Document doch)
+    {
+        String[] tablaHor;
+        int numMate=0;
+        for(Element data:doch.select("table#ctl00_mainCopy_GV_Horario tr") ){
+            numMate++;
+        }
+        tablaHor = new String[11*numMate];
+
+        tablaHor[0]="GRUPO";
+        tablaHor[1]="MATERIA";
+        tablaHor[2]="PROFESOR";
+        tablaHor[3]="EDIFICIO";
+        tablaHor[4]="SALON";
+        tablaHor[5]="LUNES";
+        tablaHor[6]="MARTES";
+        tablaHor[7]="MIERCOLES";
+        tablaHor[8]="JUEVES";
+        tablaHor[9]="VIERNES";
+        tablaHor[10]="SABADO";
+        int ih=11;
+        int column=0;
+        for(Element data:doch.select("table#ctl00_mainCopy_GV_Horario tr td")){
+            column++;
+            if (column==2||column==3){
+                char[] sigla = new  char[6];
+                int num=0;
+                boolean isSigla=true;
+                for(int j=0;j<data.text().length();j++){
+                    if(isSigla){
+                        sigla[num]=data.text().charAt(j);
+                        isSigla=false;
+                        num++;
+                    }
+                    else {
+                        if (data.text().charAt(j)==' '){isSigla=true;}
+                    }
+                }
+                tablaHor[ih]= String.valueOf(sigla);
+            }
+            else {
+                if (column == 11) {column = 0;}
+                tablaHor[ih] = data.text();
+            }
+            ih++;
+        }
+
+        return tablaHor;
+    }
+
     public static boolean isOnline (Context context){
         boolean state=false;
         ConnectivityManager cm = (ConnectivityManager)  context.getSystemService(Context.CONNECTIVITY_SERVICE);

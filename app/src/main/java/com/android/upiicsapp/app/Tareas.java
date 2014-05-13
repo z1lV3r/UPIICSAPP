@@ -11,10 +11,6 @@ import android.widget.AdapterView;
 import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.Spinner;
-import android.widget.Toast;
-
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Created by Administrador on 1/05/14.
@@ -35,8 +31,27 @@ public class Tareas extends Fragment {
         lvTareas = (ListView) view.findViewById(R.id.lvTareas);
         ibAdd = (ImageButton) view.findViewById(R.id.ibAdd);
 
-        dbTarManager = new DbTarManager(getActivity().getApplicationContext());
-
+        if(!DbHelper.existDB(getActivity().getApplicationContext())) {
+            dbTarManager = new DbTarManager(getActivity().getApplicationContext());
+            dbTarManager.insertar("Exposición de sistemas", "En rotafolio", "2014-05-11");
+            dbTarManager.insertar("Ensayo de software", "Ensayo de la situación del software en México", "2014-05-11");
+            dbTarManager.insertar("Ejercicios de proba", "Ejercicios 209-215 pag 105", "2014-05-14");
+            dbTarManager.insertar("Estudiar estructuras", "estructuras basicas (for,while,if,switch...)", "2014-05-14");
+            dbTarManager.insertar("Desarrollo de la creatividad", "Resumen de la unidad 3 del libro", "2014-05-14");
+            dbTarManager.insertar("Exposición de software", "Instituto Iberoamericano", "2014-05-20");
+            dbTarManager.insertar("Aplicación de sistemas", "Armado de circuitos con reloj y cuestionario", "2014-05-20");
+            dbTarManager.insertar("Repaso de proba", "Integrales y diferenciales", "2014-05-21");
+            dbTarManager.insertar("Investigar de POO", "Polimorfismo, clases, objetos", "2014-05-25");
+            dbTarManager.insertar("Sociedad", "Leer primer capitulo del libro Ética", "2014-05-25");
+            dbTarManager.insertar("POO", "Estudiar torres de hanoi", "2014-05-23");
+            dbTarManager.insertar("Contabilidad", "Ir al museo MIDE", "2014-05-23");
+            dbTarManager.insertar("Practica de discretas", null, "2014-05-28");
+            dbTarManager.insertar("Proba", "Examen", "2014-05-28");
+            dbTarManager.insertar("Comunicación", "Entregar ensayo de valor", "2014-05-29");
+        }
+        else {
+            dbTarManager = new DbTarManager(getActivity().getApplicationContext());
+        }
         ibAdd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
